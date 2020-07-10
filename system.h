@@ -28,6 +28,7 @@ public:
             return f( particle_distance(left, right,L) );
         }
 
+
 private:
 	double e,sig, d;
 };
@@ -42,8 +43,8 @@ public:
 
 	void next_time();
 	void integrate(double t);
-
-
+    Particle const& get_particle(int i) const { return particles[i]; };
+    int get_N() const { return N;}
 private:
 	int N;
 	double L;

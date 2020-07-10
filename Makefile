@@ -1,5 +1,5 @@
 TARGET = test.exe
-OBJS = main.o  system.o  particle.o
+OBJS = main.o  system.o  particle.o distributions.o
 CC = g++
 CFLAGS = -c -Wall -g -std=c++11
 LFLAGS = -Wall -g
@@ -8,6 +8,10 @@ LFLAGS = -Wall -g
 
 $(TARGET): $(OBJS)
 	$(CC) $(LFLAGS)  $(OBJS) -o $(TARGET)
+
+
+distributions.o: distributions.cpp distributions.h
+	$(CC) $(CFLAGS) distributions.cpp
 
 particle.o: particle.cpp particle.h
 	$(CC) $(CFLAGS) particle.cpp

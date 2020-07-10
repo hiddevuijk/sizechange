@@ -54,8 +54,7 @@ void System::integrate( double t )
         next_time();
         t -= dt;
     }
-    
-    
-
 }
+
+
 
