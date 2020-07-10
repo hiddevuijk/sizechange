@@ -12,6 +12,6 @@ public:
 	double s;
 };
 
-
+double particle_distance( const Particle, const Particle, double L = -1 );
 
 #endif

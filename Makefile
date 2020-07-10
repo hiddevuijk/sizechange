@@ -1,15 +1,16 @@
 TARGET = test.exe
-OBJS = main.o  system.o 
+OBJS = main.o  system.o  particle.o
 CC = g++
-#CFLAGS = -c -Wall -g -std=c++11
-#LFLAGS = -Wall -g
-CFLAGS = -c -Wall -O3 -DNDEBUG -std=c++11
-LFLAGS = -Wall  -O3 -DNDEBUG
+CFLAGS = -c -Wall -g -std=c++11
+LFLAGS = -Wall -g
+#CFLAGS = -c -Wall -O3 -DNDEBUG -std=c++11
+#LFLAGS = -Wall  -O3 -DNDEBUG
 
 $(TARGET): $(OBJS)
 	$(CC) $(LFLAGS)  $(OBJS) -o $(TARGET)
 
 particle.o: particle.cpp particle.h
+	$(CC) $(CFLAGS) particle.cpp
 
 system.o: system.cpp system.h
 	$(CC) $(CFLAGS) system.cpp

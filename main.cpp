@@ -20,17 +20,19 @@ int main()
     double gammaS = 1;
 
     double e = 1;
+    double sig = 1.2;
     double d = 1;
 
     double dt = 0.1;
 
     int seed = 123456789;
 
-    Potential U(e,d);
+    Potential U(e,sig,d);
 
 
     System system(N, L, T, gamma, size0, TS, gammaS, U,dt, seed);
 
+    system.integrate(10.);
 
 	return 0;
 }

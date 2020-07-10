@@ -1,19 +1,13 @@
 
 #include "system.h"
 
-double Potential::f( const Particle left, const Particle right) const
-{
-
-
-	return 1.;
-}
 
 
 System::System( int N, double L, double T, double gamma,
 			double size0, double gammaS, double TS,
             Potential U, double dt, long int seed)
 	: N(N), L(L), T(T), gamma(gamma), size0(size0), TS(TS),
-        gammaS(gammaS), U(U), dt(dt), particles(N),
+        gammaS(gammaS), U(U), dt(dt), particles(N), forces(N),
         ndist(0., 1.), rng(seed), rndist(rng, ndist)
 {
 	double d = L/(N+1);
@@ -33,9 +27,9 @@ void System::next_time()
 
     // calculate force
 	for( int i=0; i<N-1; ++i) {
-		forces[i] = U.f( particles[i], particles[i+1] );
+		forces[i] = U.f( particles[i], particles[i+1], L );
 	}
-	forces[N-1] = U.f( particles[N-1], particles[0] );
+	forces[N-1] = U.f( particles[N-1], particles[0], L );
 
 
 	particles[0].x += dt*gamma * ( forces[0] - forces[N-1] );
