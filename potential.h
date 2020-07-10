@@ -16,8 +16,9 @@ public:
 			d = U.d;	
 		}
 
-	double f(double r) const  { return -e*r; }
-	double f(const Particle left, const Particle right) const;
+	double f(double r) const  { return e*r; }
+	//double f(const Particle left, const Particle right) const {return 1;}
+	double f(const Particle, const Particle) const;
 
 private:
 	double e,d;
@@ -25,12 +26,11 @@ private:
 };
 
 
-double Potential::f( const Particle left,
-			 const Particle right) const
+double Potential::f( const Particle left, const Particle right) const
 {
 
 
-	return f(1);
+	return 1.;
 }
 
 #endif
