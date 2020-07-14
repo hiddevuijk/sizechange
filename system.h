@@ -12,25 +12,31 @@ class Potential
 {
 public:
 	Potential(double e, double sig, double d)
-		: e(e), sig(sig), d(d) {}
+		: e(e), sig(sig), d(d), U0( e*pow(sig,d) ) {}
 
 	Potential(const Potential& U)
 		{ 
 			e = U.e;
             sig = U.sig;
 			d = U.d;	
+            U0 = U.U0;
             
 		}
 
-	double f(double r) const  { return e*pow(r,d) ; }
+	double f(double r) const  {
+            if( r < 0)  return -e*pow(-r,d) ;
+            else return 0;
+    }
 	double f(const Particle left, const Particle right, double L) const
         {
-            return f( particle_distance(left, right,L) );
+            double dist = particle_distance(left, right, L);
+            dist -= (left.s + right.s)/2;
+            return f(dist);
         }
 
 
 private:
-	double e,sig, d;
+	double e,sig, d, U0;
 };
 
 

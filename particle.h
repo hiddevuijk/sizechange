@@ -1,6 +1,7 @@
 #ifndef GUARD_PARTICLE_H
 #define GUARD_PARTICLE_H
 
+#include <math.h>
 
 class Particle
 {
@@ -12,6 +13,6 @@ public:
 	double s;
 };
 
-double particle_distance( const Particle, const Particle, double L = -1 );
+double particle_distance( const Particle&, const Particle&, double L );
 
 #endif

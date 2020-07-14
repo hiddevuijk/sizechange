@@ -10,7 +10,7 @@ System::System( int N, double L, double T, double gamma,
         gammaS(gammaS), U(U), dt(dt), particles(N), forces(N),
         ndist(0., 1.), rng(seed), rndist(rng, ndist)
 {
-	double d = L/(N+1);
+	double d = L/N;
 	for(int i=0; i<N; ++i) {
 		particles[i].x = i*d;
 		particles[i].s = size0;
@@ -33,6 +33,7 @@ void System::next_time()
 
 
 	particles[0].x += dt*gamma * ( forces[0] - forces[N-1] );
+    particles[0].x += sqrt_2Ddt * rndist();
 	for( int i=1; i<N ; ++i) {
 		particles[i].x += dt*gamma * ( forces[i] - forces[i-1] );
         particles[i].x += sqrt_2Ddt * rndist();
@@ -41,8 +42,8 @@ void System::next_time()
         if( particles[i].x < L) particles[i].x += L;
 
 		// change size
-        particles[i].s -= dt*gammaS*( size0 - particles[i].s );
-        particles[i].s +=  sqrt_2DSdt * rndist();
+        //particles[i].s -= dt*gammaS*( size0 - particles[i].s );
+        //particles[i].s +=  sqrt_2DSdt * rndist();
 	}
 
 

@@ -5,10 +5,16 @@
 #include "system.h"
 
 #include <vector>
+#include <string>
+#include <math.h>
+#include <fstream>
+#include <iostream>
 
+#include <assert.h>
 
 class Distributions
 {
+public:
     Distributions(double dx, double L, int n=0)
         : dx(dx), L(L), n(n), Nx(1+L/dx), p(Nx),
             distributions(n, std::vector<double>(Nx) ),
@@ -21,8 +27,8 @@ class Distributions
     std::vector<double> get_pair_correlations() const;
     std::vector<std::vector<double> > get_distributions() const;
 
-    void save_pair_correlations() const;
-    void save_distributions() const;
+    void save_pair_correlations(std::string) const;
+    void save_distributions(std::string) const;
 
 private:
     double dx;
