@@ -14,5 +14,6 @@ public:
 };
 
 double particle_distance( const Particle&, const Particle&, double L );
+double particle_directed_distance( const Particle&, const Particle&, double L );
 
 #endif
