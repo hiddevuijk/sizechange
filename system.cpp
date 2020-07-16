@@ -32,14 +32,18 @@ void System::next_time()
 	forces[N-1] = U.f( particles[N-1], particles[0], L );
 
 
-	particles[0].x += dt*gamma * ( forces[0] - forces[N-1] );
-    particles[0].x += sqrt_2Ddt * rndist();
-	for( int i=1; i<N ; ++i) {
-		particles[i].x += dt*gamma * ( forces[i] - forces[i-1] );
-        particles[i].x += sqrt_2Ddt * rndist();
+	for( int i=0; i<N ; ++i) {
+        if( i == 0 ) {
+            //particles[i].x += dt*gamma * ( forces[i] - forces[N-1] );
+            particles[i].x += sqrt_2Ddt * rndist();
+        } else {
+            //particles[i].x += dt*gamma * ( forces[i] - forces[i-1] );
+            particles[i].x += sqrt_2Ddt * rndist();
+        }
+
         // periodic boundary conditions
         if( particles[i].x > L) particles[i].x -= L;
-        if( particles[i].x < L) particles[i].x += L;
+        if( particles[i].x < 0) particles[i].x += L;
 
 		// change size
         //particles[i].s -= dt*gammaS*( size0 - particles[i].s );

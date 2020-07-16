@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
 
-    double N = 5;
+    double N = 2;
     double L = 10;
 
     double T = 1;
@@ -24,7 +24,7 @@ int main()
     double sig = 1.0;
     double d = 6;
 
-    double dt = 0.0001;
+    double dt = 0.00001;
 
     int seed = 123456789;
 
@@ -36,13 +36,17 @@ int main()
 
     System system(N, L, T, gamma, size0, TS, gammaS, U,dt, seed);
     Distributions distributions(dx,L, n);
-    for( int i=0; i< 10000; ++i ) {
+    for( int i=0; i< 100; ++i ) {
         system.integrate(0.1);
         distributions.sample_pair_correlations(system);
     }
 
     string outname = "gr.dat";
     distributions.save_pair_correlations(outname);
+
+    for( int i=0; i<N; ++i) {
+        cout << system.get_particle(i).x << endl;
+    }
 
     
 
