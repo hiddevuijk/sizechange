@@ -24,14 +24,14 @@ public:
 		}
 
 	double f(double r) const  {
-            if( r < 0)  return -e*pow(-r,d) ;
-            else return 0;
+          return e*pow(1./r,d) ;
     }
 	double f(const Particle left, const Particle right, double L) const
         {
-            double dist = particle_distance(left, right, L);
-            dist -= (left.s + right.s)/2;
-            return f(dist);
+            double dist = particle_directed_distance(left, right, L);
+            dist /= (left.s + right.s)/2;
+            if( dist < sig ) return e*pow(1./dist, d);
+            else return 0;
         }
 
 
@@ -51,6 +51,7 @@ public:
 	void integrate(double t);
     Particle const& get_particle(int i) const { return particles[i]; };
     int get_N() const { return N;}
+    int get_L() const { return L;}
 private:
 	int N;
 	double L;

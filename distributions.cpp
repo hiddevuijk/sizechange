@@ -6,12 +6,14 @@
 void Distributions::sample_pair_correlations( const System& system)
 {
     int N = system.get_N();
+    double norm = N*dx*N/system.get_L();
     double dist;
     for( int i=0; i<N; ++i ) {
         for( int j=i+1; j<N; ++j) {
             dist = particle_distance(system.get_particle(i), system.get_particle(j),L ); 
             assert(dist>0);
-            p[ (int) (dist/dx) ] += 1./(dx*N);
+            assert(dist<L/2);
+            p[ (int) (dist/dx) ] += 1./norm;
         }
     }
 
@@ -40,7 +42,7 @@ void Distributions::save_pair_correlations(std::string outname) const
     std::ofstream out(outname);
     if( out.is_open() ) {
         for(int i=0; i<Nx; ++i) {
-            out << (i+0.5)*dx << '\t' << p[i]/N_sample_p; 
+            out << (i+0.5)*dx << '\t' << p[i]/N_sample_p;
             if( i < Nx-1) out << '\n';
         }
     }

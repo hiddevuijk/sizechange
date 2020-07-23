@@ -4,7 +4,7 @@
 
 
 System::System( int N, double L, double T, double gamma,
-			double size0, double gammaS, double TS,
+			double size0, double TS, double gammaS,
             Potential U, double dt, long int seed)
 	: N(N), L(L), T(T), gamma(gamma), size0(size0), TS(TS),
         gammaS(gammaS), U(U), dt(dt), particles(N), forces(N),
@@ -34,20 +34,17 @@ void System::next_time()
 
 	for( int i=0; i<N ; ++i) {
         if( i == 0 ) {
-            //particles[i].x += dt*gamma * ( forces[i] - forces[N-1] );
-            particles[i].x += sqrt_2Ddt * rndist();
+            particles[i].x += dt * ( forces[N-1] - forces[i] ) / gamma;
         } else {
-            //particles[i].x += dt*gamma * ( forces[i] - forces[i-1] );
-            particles[i].x += sqrt_2Ddt * rndist();
+            particles[i].x += dt * ( forces[i-1] - forces[i] ) / gamma;
         }
+        particles[i].x += sqrt_2Ddt * rndist();
 
-        // periodic boundary conditions
-        if( particles[i].x > L) particles[i].x -= L;
-        if( particles[i].x < 0) particles[i].x += L;
 
 		// change size
-        //particles[i].s -= dt*gammaS*( size0 - particles[i].s );
-        //particles[i].s +=  sqrt_2DSdt * rndist();
+        particles[i].s +=  sqrt_2DSdt * rndist();
+        particles[i].s += dt*gammaS*( size0 - particles[i].s );
+        particles[i].s = fabs( particles[i].s );
 	}
 
 
