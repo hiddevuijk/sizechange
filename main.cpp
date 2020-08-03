@@ -10,13 +10,13 @@ using namespace std;
 int main()
 {
 
-    double N = 19;
+    double N = 5;
     double L = 20; 
-    double T = 0.1;
+    double T = 1.;
     double gamma = 1;
 
     double size0 = 1;
-    double TS = 1;
+    double TS = 5.;
     double gammaS = 1;
 
     double e = 1.;
@@ -27,7 +27,7 @@ int main()
 
     int seed = 123456789;
 
-    double dx = 0.02;
+    double dx = 0.1;
     int n = 2;
 
     Potential U(e,sig,d);
@@ -40,7 +40,8 @@ int main()
 
 
     for( int i=0; i< Ni; ++i ) {
-        system.integrate(0.01);
+        cout << i << endl;
+        system.integrate(1.);
         distributions.sample_pair_correlations(system);
     }
 
